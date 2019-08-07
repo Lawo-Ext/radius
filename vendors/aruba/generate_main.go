@@ -11,8 +11,8 @@ import (
 	"net/http"
 	"os"
 
-	"layeh.com/radius/dictionary"
-	"layeh.com/radius/dictionarygen"
+	"github.com/Lawo-Ext/radius/dictionary"
+	"github.com/Lawo-Ext/radius/dictionarygen"
 )
 
 func main() {

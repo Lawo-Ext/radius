@@ -9,8 +9,8 @@ import (
 	"strconv"
 	"time"
 
-	"layeh.com/radius"
-	. "layeh.com/radius/rfc2865"
+	"github.com/Lawo-Ext/radius"
+	. "github.com/Lawo-Ext/radius/rfc2865"
 )
 
 const usage = `

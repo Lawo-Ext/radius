@@ -8,7 +8,7 @@ import (
 	"io"
 	"os"
 
-	"layeh.com/radius/dictionary"
+	"github.com/Lawo-Ext/radius/dictionary"
 )
 
 func main() {

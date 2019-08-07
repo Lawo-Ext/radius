@@ -7,9 +7,9 @@ import (
 	"strings"
 	"testing"
 
-	"layeh.com/radius"
-	"layeh.com/radius/rfc2865"
-	"layeh.com/radius/rfc2869"
+	"github.com/Lawo-Ext/radius"
+	"github.com/Lawo-Ext/radius/rfc2865"
+	"github.com/Lawo-Ext/radius/rfc2869"
 )
 
 func Test_RFC2865_7_1(t *testing.T) {

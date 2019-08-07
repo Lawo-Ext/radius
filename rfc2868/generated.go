@@ -6,7 +6,7 @@ import (
 	"crypto/rand"
 	"strconv"
 
-	"layeh.com/radius"
+	"github.com/Lawo-Ext/radius"
 )
 
 const (
@@ -37,6 +37,7 @@ const (
 	TunnelType_Value_GRE    TunnelType = 10
 	TunnelType_Value_DVS    TunnelType = 11
 	TunnelType_Value_IPInIP TunnelType = 12
+	TunnelType_Value_VLAN   TunnelType = 13
 )
 
 var TunnelType_Strings = map[TunnelType]string{
@@ -52,6 +53,7 @@ var TunnelType_Strings = map[TunnelType]string{
 	TunnelType_Value_GRE:    "GRE",
 	TunnelType_Value_DVS:    "DVS",
 	TunnelType_Value_IPInIP: "IP-in-IP",
+	TunnelType_Value_VLAN:   "VLAN",
 }
 
 func (a TunnelType) String() string {

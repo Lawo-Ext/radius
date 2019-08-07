@@ -52,7 +52,7 @@ func main() {
 	fmt.Fprintln(w, "")
 	fmt.Fprintln(w, "package debug")
 	fmt.Fprintln(w, "")
-	fmt.Fprintln(w, `import "layeh.com/radius/dictionary"`)
+	fmt.Fprintln(w, `import "github.com/Lawo-Ext/radius/dictionary"`)
 	fmt.Fprintln(w, "")
 	fmt.Fprintf(w, "var IncludedDictionary = %#v\n", dict)
 }

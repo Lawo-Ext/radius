@@ -3,6 +3,7 @@ package radius_test
 import (
 	"bytes"
 	"encoding/hex"
+	"log"
 	"net"
 	"strings"
 	"testing"
@@ -341,4 +342,16 @@ func RADIUSPacketsEqual(a, b []byte) bool {
 	}
 
 	return true
+}
+
+func TestPacket_EncodeOriginal(t *testing.T) {
+
+	p := radius.New(radius.CodeAccessRequest, []byte(`12345`))
+
+	if result, err := p.EncodeOriginal(); err != nil {
+		t.Fatalf("expected no error got %s \n", err)
+	} else {
+		log.Printf("result:0x%x \n", result)
+	}
+
 }

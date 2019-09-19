@@ -36,6 +36,9 @@ type Request struct {
 	// Packet is the RADIUS packet sent in the request.
 	*Packet
 
+	// Stream is the original Stream of bytes sent in the request
+	Stream []byte
+
 	ctx context.Context
 }
 

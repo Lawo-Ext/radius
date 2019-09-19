@@ -177,6 +177,7 @@ func (s *PacketServer) Serve(conn net.PacketConn) error {
 				LocalAddr:  conn.LocalAddr(),
 				RemoteAddr: remoteAddr,
 				Packet:     packet,
+				Stream:     buff,
 				ctx:        s.ctx,
 			}
 

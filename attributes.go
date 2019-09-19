@@ -98,29 +98,6 @@ func (a Attributes) encodeTo(b []byte) {
 	}
 }
 
-//encodeToPreserve similar to encode but preserves type ordering
-func (a Attributes) encodeToPreserve(b []byte) {
-	types := make([]int, 0, len(a))
-	for typ := range a {
-		if typ >= 1 && typ <= 255 {
-			types = append(types, int(typ))
-		}
-	}
-
-	for _, typ := range types {
-		for _, attr := range a[Type(typ)] {
-			if len(attr) > 255 {
-				continue
-			}
-			size := 1 + 1 + len(attr)
-			b[0] = byte(typ)
-			b[1] = byte(size)
-			copy(b[2:], attr)
-			b = b[size:]
-		}
-	}
-}
-
 func (a Attributes) wireSize() (bytes int) {
 	for typ, attrs := range a {
 		if typ < 1 || typ > 255 {

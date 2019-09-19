@@ -123,30 +123,6 @@ func (p *Packet) Encode() ([]byte, error) {
 	return b, nil
 }
 
-//EncodeOriginal takes the original packet and encodes it
-//however it keeps the attributes in the original order in the packet
-//it also does not fill in the authenticator and leaves this blank
-func (p *Packet) EncodeOriginal() ([]byte, error) {
-
-	attributesSize := p.Attributes.wireSize()
-	if attributesSize == -1 {
-		return nil, errors.New("invalid packet attribute length")
-	}
-	size := 20 + attributesSize
-	if size > MaxPacketLength {
-		return nil, errors.New("encoded packet is too long")
-	}
-
-	b := make([]byte, size)
-	b[0] = byte(p.Code)
-	b[1] = byte(p.Identifier)
-	binary.BigEndian.PutUint16(b[2:4], uint16(size))
-
-	p.Attributes.encodeToPreserve(b[20:])
-
-	return b, nil
-}
-
 // IsAuthenticResponse returns if the given RADIUS response is an authentic
 // response to the given request.
 func IsAuthenticResponse(response, request, secret []byte) bool {

@@ -84,9 +84,6 @@ func (s *PacketServer) Serve(conn net.PacketConn) error {
 	if s.Handler == nil {
 		return errors.New("radius: nil Handler")
 	}
-	if s.SecretSource == nil {
-		return errors.New("radius: nil SecretSource")
-	}
 
 	s.mu.Lock()
 	s.initLocked()

@@ -3,9 +3,13 @@ package radius
 import (
 	"context"
 	"errors"
+
 	"net"
+
 	"sync"
 	"sync/atomic"
+
+	"ccp-tea.lawo.de/home/dsetcd"
 )
 
 type packetResponseWriter struct {
@@ -128,6 +132,13 @@ func (s *PacketServer) Serve(conn net.PacketConn) error {
 			}
 			continue
 		}
+
+		shared, err := dsetcd.GetKeyVal(dsetcd.RadiusShared)
+		if err != nil {
+			continue
+		}
+		//allow the shared secret to be changed on the fly
+		s.SecretSource = StaticSecretSource([]byte(shared))
 
 		s.activeAdd()
 		go func(buff []byte, remoteAddr net.Addr) {

@@ -199,9 +199,6 @@ func (s *PacketServer) ListenAndServe() error {
 	if s.Handler == nil {
 		return errors.New("radius: nil Handler")
 	}
-	if s.SecretSource == nil {
-		return errors.New("radius: nil SecretSource")
-	}
 
 	addrStr := ":1812"
 	if s.Addr != "" {

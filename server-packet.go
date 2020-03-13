@@ -3,6 +3,7 @@ package radius
 import (
 	"context"
 	"errors"
+	"log"
 
 	"net"
 
@@ -132,6 +133,7 @@ func (s *PacketServer) Serve(conn net.PacketConn) error {
 
 		shared, err := dsetcd.GetKeyVal(dsetcd.RadiusShared)
 		if err != nil {
+			log.Printf("Serve failed to GetKeyVal:%s error:%s packet dropped", dsetcd.RadiusShared, err)
 			continue
 		}
 		//allow the shared secret to be changed on the fly
@@ -143,18 +145,22 @@ func (s *PacketServer) Serve(conn net.PacketConn) error {
 
 			secret, err := s.SecretSource.RADIUSSecret(s.ctx, remoteAddr)
 			if err != nil {
+				log.Printf("Serve failed on RADIUSSecret error:%s packet dropped", err)
 				return
 			}
 			if len(secret) == 0 {
+				log.Printf("Serve failed on RADIUSSecret len == 0 packet dropped")
 				return
 			}
 
 			if !s.InsecureSkipVerify && !IsAuthenticRequest(buff, secret) {
+				log.Printf("Serve failed on IsAuthenticRequest packet dropped")
 				return
 			}
 
 			packet, err := Parse(buff, secret)
 			if err != nil {
+				log.Printf("Serve failed on parse err:%s packet dropped", err)
 				return
 			}
 

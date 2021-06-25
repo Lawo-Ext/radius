@@ -3,14 +3,13 @@ package radius
 import (
 	"context"
 	"errors"
-	"log"
 
 	"net"
 
 	"sync"
 	"sync/atomic"
 
-	"ccp-tea.lawo.de/home/dsetcd"
+	"ccp-tea.lawo.de/home/plinth"
 )
 
 type packetResponseWriter struct {
@@ -51,6 +50,9 @@ type PacketServer struct {
 	InsecureSkipVerify bool
 
 	shutdownRequested int32
+
+	Store *plinth.Store
+	Home  *plinth.Home
 
 	mu          sync.Mutex
 	ctx         context.Context
@@ -131,13 +133,13 @@ func (s *PacketServer) Serve(conn net.PacketConn) error {
 			continue
 		}
 
-		shared, err := dsetcd.GetKeyVal(dsetcd.RadiusShared)
+		shared, err := s.Store.Read(plinth.StorePrefixRadiusShared)
 		if err != nil {
-			log.Printf("Serve failed to GetKeyVal:%s error:%s packet dropped", dsetcd.RadiusShared, err)
+			s.Home.LogMsg("warn", "radius", "failed to collect shared secret packet dropped")
 			continue
 		}
 		//allow the shared secret to be changed on the fly
-		s.SecretSource = StaticSecretSource([]byte(shared))
+		s.SecretSource = StaticSecretSource(shared)
 
 		s.activeAdd()
 		go func(buff []byte, remoteAddr net.Addr) {
@@ -145,22 +147,22 @@ func (s *PacketServer) Serve(conn net.PacketConn) error {
 
 			secret, err := s.SecretSource.RADIUSSecret(s.ctx, remoteAddr)
 			if err != nil {
-				log.Printf("Serve failed on RADIUSSecret error:%s packet dropped", err)
+				s.Home.LogMsg("warn", "radius", "Radius Serve failed on RADIUSSecret error:%s packet dropped", err)
 				return
 			}
 			if len(secret) == 0 {
-				log.Printf("Serve failed on RADIUSSecret len == 0 packet dropped")
+				s.Home.LogMsg("warn", "radius", "Radius Serve failed on RADIUSSecret len == 0 packet dropped")
 				return
 			}
 
 			if !s.InsecureSkipVerify && !IsAuthenticRequest(buff, secret) {
-				log.Printf("Serve failed on IsAuthenticRequest packet dropped")
+				s.Home.LogMsg("warn", "radius", "Radius Serve failed on IsAuthenticRequest packet dropped")
 				return
 			}
 
 			packet, err := Parse(buff, secret)
 			if err != nil {
-				log.Printf("Serve failed on parse err:%s packet dropped", err)
+				s.Home.LogMsg("warn", "radius", "Radius serve failed on parse err:%s packet dropped", err)
 				return
 			}
 

@@ -133,7 +133,7 @@ func (s *PacketServer) Serve(conn net.PacketConn) error {
 			continue
 		}
 
-		shared, err := s.Store.Read(plinth.StorePrefixRadiusShared)
+		shared, err := s.Store.Read(context.Background(), plinth.StorePrefixRadiusShared)
 		if err != nil {
 			s.Home.LogMsg("warn", "radius", "failed to collect shared secret packet dropped")
 			continue

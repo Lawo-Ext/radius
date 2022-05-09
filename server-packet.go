@@ -3,6 +3,7 @@ package radius
 import (
 	"context"
 	"errors"
+	"log"
 
 	"net"
 
@@ -135,7 +136,7 @@ func (s *PacketServer) Serve(conn net.PacketConn) error {
 
 		shared, err := s.Store.Read(context.Background(), plinth.StorePrefixRadiusShared)
 		if err != nil {
-			s.Home.LogMsg("warn", "radius", "failed to collect shared secret packet dropped")
+			log.Printf("warn:radius failed to collect shared secret packet dropped \n")
 			continue
 		}
 		//allow the shared secret to be changed on the fly
@@ -147,22 +148,22 @@ func (s *PacketServer) Serve(conn net.PacketConn) error {
 
 			secret, err := s.SecretSource.RADIUSSecret(s.ctx, remoteAddr)
 			if err != nil {
-				s.Home.LogMsg("warn", "radius", "Radius Serve failed on RADIUSSecret error:%s packet dropped", err)
+				log.Printf("warn:radius failed on RADIUSSecret error:%s packet dropped \n", err)
 				return
 			}
 			if len(secret) == 0 {
-				s.Home.LogMsg("warn", "radius", "Radius Serve failed on RADIUSSecret len == 0 packet dropped")
+				log.Printf("warn:radius failed on RADIUSSecret len == 0 packet dropped \n")
 				return
 			}
 
 			if !s.InsecureSkipVerify && !IsAuthenticRequest(buff, secret) {
-				s.Home.LogMsg("warn", "radius", "Radius Serve failed on IsAuthenticRequest packet dropped")
+				log.Printf("warn:radius failed on IsAuthenticRequest packet dropped \n")
 				return
 			}
 
 			packet, err := Parse(buff, secret)
 			if err != nil {
-				s.Home.LogMsg("warn", "radius", "Radius serve failed on parse err:%s packet dropped", err)
+				log.Printf("warn:radius failed on parse err:%s packet dropped \n", err)
 				return
 			}
 

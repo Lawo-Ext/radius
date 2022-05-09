@@ -2,10 +2,10 @@ module github.com/Lawo-Ext/radius
 
 go 1.17
 
-require ccp-tea.lawo.de/home/plinth v0.0.0-20220309092705-d9b0cd541f5e
+require ccp-tea.lawo.de/home/plinth v0.0.0-20220509124803-549896b7bf06
 
 require (
-	ccp-tea.lawo.de/home/datamodel v0.0.0-20220307153756-143e0f1516f5 // indirect
+	ccp-tea.lawo.de/home/datamodel v0.0.0-20220407103036-3d98300eff8c // indirect
 	github.com/coreos/go-semver v0.3.0 // indirect
 	github.com/coreos/go-systemd/v22 v22.3.2 // indirect
 	github.com/dustin/go-humanize v1.0.0 // indirect

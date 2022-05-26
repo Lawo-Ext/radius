@@ -2,10 +2,10 @@ module github.com/Lawo-Ext/radius
 
 go 1.17
 
-require ccp-tea.lawo.de/home/plinth v0.0.0-20220509124803-549896b7bf06
+require ccp-tea.lawo.de/home/plinth v0.0.0-20220526074238-cd2852993bd4
 
 require (
-	ccp-tea.lawo.de/home/datamodel v0.0.0-20220407103036-3d98300eff8c // indirect
+	ccp-tea.lawo.de/home/datamodel v0.0.0-20220525144944-ef918d5db1f0 // indirect
 	github.com/coreos/go-semver v0.3.0 // indirect
 	github.com/coreos/go-systemd/v22 v22.3.2 // indirect
 	github.com/dustin/go-humanize v1.0.0 // indirect
@@ -14,16 +14,16 @@ require (
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/klauspost/compress v1.15.0 // indirect
 	github.com/nats-io/jsm.go v0.0.29 // indirect
-	github.com/nats-io/nats.go v1.13.1-0.20220216000616-0096b1bfae8d // indirect
+	github.com/nats-io/nats.go v1.15.0 // indirect
 	github.com/nats-io/nkeys v0.3.0 // indirect
 	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/opentracing/opentracing-go v1.2.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/uber/jaeger-client-go v2.30.0+incompatible // indirect
 	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
-	go.etcd.io/etcd/api/v3 v3.5.2 // indirect
-	go.etcd.io/etcd/client/pkg/v3 v3.5.2 // indirect
-	go.etcd.io/etcd/client/v3 v3.5.2 // indirect
+	go.etcd.io/etcd/api/v3 v3.5.4 // indirect
+	go.etcd.io/etcd/client/pkg/v3 v3.5.4 // indirect
+	go.etcd.io/etcd/client/v3 v3.5.4 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
 	go.uber.org/zap v1.21.0 // indirect
@@ -33,5 +33,5 @@ require (
 	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/genproto v0.0.0-20220308174144-ae0e22291548 // indirect
 	google.golang.org/grpc v1.44.0 // indirect
-	google.golang.org/protobuf v1.27.1 // indirect
+	google.golang.org/protobuf v1.28.0 // indirect
 )

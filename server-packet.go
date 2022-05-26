@@ -10,7 +10,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"ccp-tea.lawo.de/home/plinth"
+	"ccp-tea.lawo.de/home/plinth/store"
 )
 
 type packetResponseWriter struct {
@@ -51,9 +51,6 @@ type PacketServer struct {
 	InsecureSkipVerify bool
 
 	shutdownRequested int32
-
-	Store *plinth.Store
-	Home  *plinth.Home
 
 	mu          sync.Mutex
 	ctx         context.Context
@@ -134,7 +131,7 @@ func (s *PacketServer) Serve(conn net.PacketConn) error {
 			continue
 		}
 
-		shared, err := s.Store.Read(context.Background(), plinth.StorePrefixRadiusShared)
+		shared, err := store.Read(context.Background(), store.StorePrefixRadiusShared)
 		if err != nil {
 			log.Printf("warn:radius failed to collect shared secret packet dropped \n")
 			continue

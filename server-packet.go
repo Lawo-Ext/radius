@@ -10,7 +10,8 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"ccp-tea.lawo.de/home/plinth"
+	plinth "ccp-tea.lawo.de/home/plinth/store"
+	storePkg "ccp-tea.lawo.de/home/plinth/store"
 )
 
 type packetResponseWriter struct {
@@ -52,8 +53,7 @@ type PacketServer struct {
 
 	shutdownRequested int32
 
-	Store *plinth.Store
-	Home  *plinth.Home
+	Store *storePkg.Store
 
 	mu          sync.Mutex
 	ctx         context.Context
